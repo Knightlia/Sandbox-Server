@@ -1,0 +1,6 @@
+logging:
+  config: classpath:logback-TESTING.xml
+
+sandbox:
+  cors:
+    origins: http://localhost:8080

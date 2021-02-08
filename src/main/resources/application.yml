@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: Sandbox Server
+  mvc:
+    async:
+      request-timeout: -1
+
+sandbox:
+  version: @project.version@

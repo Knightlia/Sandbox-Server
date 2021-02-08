@@ -1,0 +1,9 @@
+server:
+  port: 2000
+
+logging:
+  config: classpath:logback/logback-prod.xml
+
+sandbox:
+  cors:
+    origins: https://sandbox.particlechat.com

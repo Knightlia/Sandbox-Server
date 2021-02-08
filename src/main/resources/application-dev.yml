@@ -1,0 +1,9 @@
+server:
+  port: 5000
+
+logging:
+  config: classpath:logback/logback-dev.xml
+
+sandbox:
+  cors:
+    origins: http://localhost:8080
