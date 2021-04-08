@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MessageRequest {
-    private String sender, message, id;
+    private String sender, message, id, avatarColour;
     private long time;
 }

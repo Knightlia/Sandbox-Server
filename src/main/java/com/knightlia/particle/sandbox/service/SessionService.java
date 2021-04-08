@@ -8,6 +8,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import com.knightlia.particle.sandbox.model.event.UserListEvent;
+import com.knightlia.particle.sandbox.model.event.UserListPublishEvent;
 import com.knightlia.particle.sandbox.model.response.NicknameResponse;
 
 @Service
@@ -29,9 +30,7 @@ public class SessionService {
         }
 
         userSessionMap.put(sessionID, nickname);
-        applicationEventPublisher.publishEvent(UserListEvent.builder()
-            .userList(userSessionMap.values())
-            .build());
+        publishUserList();
 
         return NicknameResponse.builder()
             .status(true)
@@ -47,5 +46,12 @@ public class SessionService {
     @EventListener
     public void removeSession(String token) {
         userSessionMap.remove(token);
+    }
+
+    @EventListener(UserListPublishEvent.class)
+    public void publishUserList() {
+        applicationEventPublisher.publishEvent(UserListEvent.builder()
+            .userList(userSessionMap.values())
+            .build());
     }
 }

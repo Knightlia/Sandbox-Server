@@ -30,8 +30,8 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public WebSocketHandler webSocketHandler(TokenHandler tokenHandler) {
-        return new WebSocketHandler(tokenHandler);
+    public WebSocketHandler webSocketHandler(TokenHandler tokenHandler, ApplicationEventPublisher applicationEventPublisher) {
+        return new WebSocketHandler(tokenHandler, applicationEventPublisher);
     }
 
     @Bean
