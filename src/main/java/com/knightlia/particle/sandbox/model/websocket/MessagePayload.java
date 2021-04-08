@@ -24,12 +24,16 @@ public class MessagePayload {
     @JsonProperty("t")
     private long time;
 
+    @JsonProperty("a")
+    private final String avatarColour;
+
     public static MessagePayload messagePayloadFromRequest(MessageRequest messageRequest) {
         return MessagePayload.builder()
             .messageType(MessageType.MESSAGE_PAYLOAD)
             .sender(messageRequest.getSender())
             .message(messageRequest.getMessage())
             .time(messageRequest.getTime())
+            .avatarColour(messageRequest.getAvatarColour())
             .build();
     }
 }

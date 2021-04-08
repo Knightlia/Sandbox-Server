@@ -1,7 +1,7 @@
 # Sandbox Server
 
-![Tests](https://github.com/Knightlia/Sandbox-Server/workflows/Tests/badge.svg)
-![Deploy](https://github.com/Knightlia/Sandbox-Server/workflows/Deploy/badge.svg)
+[![Build Status](https://img.shields.io/github/workflow/status/knightlia/sandbox-server/Tests/master?label=Tests&logo=github)](https://github.com/Knightlia/Sandbox-Server/actions/workflows/tests.yml?query=branch%3Amaster+workflow%3ATests)
+[![Build Status](https://img.shields.io/github/workflow/status/knightlia/sandbox-server/Deploy/master?label=Deploy&logo=github)](https://github.com/Knightlia/Sandbox-Server/actions/workflows/deploy.yml?query=branch%3Amaster+workflow%3ADeploy)
 
 This is the API server that handles the Sandbox mode of the Particle Chat application. This includes the REST API and the WebSocket API.
 

@@ -3,6 +3,7 @@ package com.knightlia.particle.sandbox.controller;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -11,6 +12,7 @@ import com.knightlia.particle.sandbox.model.request.MessageRequest;
 import com.knightlia.particle.sandbox.model.request.NicknameRequest;
 import com.knightlia.particle.sandbox.model.response.NicknameResponse;
 import com.knightlia.particle.sandbox.model.response.Response;
+import com.knightlia.particle.sandbox.websocket.TokenHandler;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -19,9 +21,12 @@ public class MessageControllerTest extends AbstractTestBase {
 
     private static final String URL = "/v1/message";
 
+    @MockBean
+    private TokenHandler tokenHandler;
+
     @BeforeEach
     public void setup() {
-        setupTokens();
+        setupTokens(tokenHandler);
         POST("/v1/nickname", nicknameRequest(), headers(), NicknameResponse.class);
     }
 

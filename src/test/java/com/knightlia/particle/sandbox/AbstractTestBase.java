@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -30,9 +31,6 @@ public abstract class AbstractTestBase {
     @LocalServerPort
     private int port;
 
-    @MockBean
-    protected TokenHandler tokenHandler;
-
     @Autowired
     protected TestRestTemplate testRestTemplate;
 
@@ -40,9 +38,9 @@ public abstract class AbstractTestBase {
     protected ApplicationEventPublisher applicationEventPublisher;
 
     @Autowired
-    private ObjectMapper objectMapper;
+    protected ObjectMapper objectMapper;
 
-    protected void setupTokens() {
+    protected void setupTokens(TokenHandler tokenHandler) {
         when(tokenHandler.verifyToken(VALID_TOKEN)).thenReturn(true);
     }
 

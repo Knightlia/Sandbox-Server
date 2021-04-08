@@ -2,10 +2,12 @@ package com.knightlia.particle.sandbox.websocket;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 
+import com.knightlia.particle.sandbox.model.event.UserListPublishEvent;
 import com.knightlia.particle.sandbox.model.websocket.MessageType;
 import com.knightlia.particle.sandbox.model.websocket.TokenPayload;
 
@@ -15,9 +17,11 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(WebSocketHandler.class);
     private final TokenHandler tokenHandler;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
-    public WebSocketHandler(TokenHandler tokenHandler) {
+    public WebSocketHandler(TokenHandler tokenHandler, ApplicationEventPublisher applicationEventPublisher) {
         this.tokenHandler = tokenHandler;
+        this.applicationEventPublisher = applicationEventPublisher;
     }
 
     @Override
@@ -35,6 +39,7 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
         LOG.info("WebSocket client connection closed: session={}, id={}, status={}, reason={}",
             session.getRemoteAddress(), session.getId(), status.getCode(), status.getReason());
         tokenHandler.removeSessionToken(session);
+        applicationEventPublisher.publishEvent(new UserListPublishEvent(this));
     }
 
     @Override
