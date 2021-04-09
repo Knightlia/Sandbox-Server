@@ -26,7 +26,7 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) {
-        LOG.info("New WebSocket client: session={}, id={}", session.getRemoteAddress(), session.getId());
+        LOG.info("New WebSocket client: id={}", session.getId());
         tokenHandler.addSessionToken(session, session.getId());
         sendSinglePayload(session, TokenPayload.builder()
             .messageType(MessageType.TOKEN_PAYLOAD)
@@ -36,16 +36,15 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
-        LOG.info("WebSocket client connection closed: session={}, id={}, status={}, reason={}",
-            session.getRemoteAddress(), session.getId(), status.getCode(), status.getReason());
+        LOG.info("WebSocket client connection closed: id={}, status={}, reason={}",
+            session.getId(), status.getCode(), status.getReason());
         tokenHandler.removeSessionToken(session);
         applicationEventPublisher.publishEvent(new UserListPublishEvent(this));
     }
 
     @Override
     public void handleTransportError(WebSocketSession session, Throwable e) {
-        LOG.error("Error with WebSocket client: session={}, id={}, message={}",
-            session.getRemoteAddress(), session.getId(), e.getMessage(), e);
+        LOG.error("Error with WebSocket client: id={}, message={}", session.getId(), e.getMessage(), e);
         tokenHandler.removeSessionToken(session);
     }
 }
