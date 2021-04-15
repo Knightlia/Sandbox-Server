@@ -26,7 +26,9 @@ public class TokenHandler {
 
     public void removeSessionToken(WebSocketSession session) {
         String token = sessionTokenMap.remove(session);
-        applicationEventPublisher.publishEvent(token);
+        if (token != null) {
+            applicationEventPublisher.publishEvent(token);
+        }
     }
 
     public Collection<WebSocketSession> getSessionList() {

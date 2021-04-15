@@ -1,5 +1,7 @@
 package com.knightlia.particle.sandbox.websocket;
 
+import java.io.EOFException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
@@ -44,7 +46,11 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
 
     @Override
     public void handleTransportError(WebSocketSession session, Throwable e) {
-        LOG.error("Error with WebSocket client: id={}, message={}", session.getId(), e.getMessage(), e);
+        if (e instanceof EOFException) {
+            LOG.warn("Unexpected terminal with client: id={}, message={}", session.getId(), e.getMessage());
+        } else {
+            LOG.error("Error with WebSocket client: id={}, message={}", session.getId(), e.getMessage(), e);
+        }
         tokenHandler.removeSessionToken(session);
     }
 }

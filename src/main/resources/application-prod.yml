@@ -6,4 +6,4 @@ logging:
 
 sandbox:
   cors:
-    origins: https://sandbox.knightlia.com
+    origins: https://sandbox.particlechat.com
